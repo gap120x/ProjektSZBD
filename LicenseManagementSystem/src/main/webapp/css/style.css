@@ -1,0 +1,148 @@
+/* CSS Document */
+
+body {	
+	margin:0px;
+	padding:0px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#464a4f;
+	background:url(../images/body-bg.jpg) repeat;
+	}
+
+p, h1, h2, h3, h4, h5, h6, ul, li {
+	margin:0px;
+	padding:0px;
+	}
+	
+img {
+	border:none;
+	}
+
+a {
+	color:#072FCF;
+	text-decoration:underline;
+	}
+
+a:hover {
+	color:#072FCF;
+	text-decoration:none;
+	}
+	
+.copyright {
+	border:0px;
+	height:1px;
+	width:1px;
+	}
+
+#container {
+	width:1366px;	
+	margin:6px auto;	
+	}
+	
+#header {
+	width:1366px;
+	float:left;
+	background:url(../images/heaser-bg.jpg) ;
+	height:180px;
+	}	
+	
+#logo {	
+	width:88px;
+	float:left;
+	margin:73px 0px 0px 33px;
+	}
+	
+#logo-text {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:40px;
+	color:#FFFFFF;
+	font-weight:normal;
+	float:left;
+	margin:88px 0px 0px 0px;
+	}
+
+#nav {width:: 1366px; margin: 0 auto;background: #242424;  }
+	
+#menu {display: table; padding: 0 10px 0; margin: 0 auto; overflow: hidden; font-size: 18px; background: #242424;}
+#menu li {list-style-type: none; margin: 0 auto; float: left; }
+#menu li:hover {background: #404040;}
+#menu li a {display: block; color: silver; text-decoration: none; padding: 7px 10px 7px;}
+#menu li a:hover {background: #404040; color: white;}
+#menu li li a {width: 160px;}
+#menu li ul{overflow: hidden; display: none; background: #242424;}
+#menu li:hover ul {position: absolute; padding: 0; display: block; width: 160px;}
+
+#site-content {
+	
+	width:1366px;
+	
+	float:left;
+	background: #404040;
+	
+	}
+#powitanie
+{
+text-align:center;
+color:white;
+font-size:30px;
+margin-top:30px;
+}	
+#wiadomosc
+{
+color:white;
+margin:60px;
+display:inline;
+text-align:center;
+}
+#footer {
+	width:1366px;
+	float:left;
+	border-top:8px #53666c solid;
+	clear:both; 
+	height:60px;
+	width:1366px;
+	background: #242424;
+	height:30px;
+	}
+
+
+.border-1 {
+	background:url(../images/border-bg.jpg) bottom repeat-x;
+	}
+	
+#footer p {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#ffffff;
+	width:300px;
+	float:left;
+	margin:10px 0px 0px 10px;
+	}
+
+#footer {}
+
+#userlogin
+{
+clear:both; 
+color: silver;
+display:inline-block;
+font-size:18px;
+padding-top:8px;
+
+
+
+   
+}
+#error
+{
+text-align:center;
+color:red;
+font-size:40px;
+margin-top:50px;
+}
+#wrongusername
+{
+color:red;
+font-size:16px;
+}
+
