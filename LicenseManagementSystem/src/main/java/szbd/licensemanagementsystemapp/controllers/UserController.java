@@ -9,6 +9,7 @@ import szbd.licensemanagementsystemapp.customers.Customer;
 import szbd.licensemanagementsystemapp.customers.CustomerDto;
 import szbd.licensemanagementsystemapp.customers.CustomerService;
 import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUser;
+import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUserDto;
 import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUserService;
 import szbd.licensemanagementsystemapp.department.Department;
 import szbd.licensemanagementsystemapp.department.DepartmentService;
@@ -309,6 +310,14 @@ public String newCustomerServiceUser(Model model) {
 	
 
 
+}
+	@RequestMapping("/accountlist/customerservice")
+	public String ViewCustomerServiceUsers(Model model) {		
+		
+		List<CustomerServiceUserDto> customerserviceuserlist =userservice.viewCustomerServiceUser();
+		model.addAttribute("customerserviceuserlist",customerserviceuserlist);
+		
+		return "customerserviceuserlist";        
 }
 	
 
