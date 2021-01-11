@@ -12,9 +12,9 @@
     </li>
 	 <li><a>Działy</a>
     <ul>
-        <li><a href="/">Lista Działów</a></li>
-    <li><a href="/newaccount">Nowy Dział</a></li>
-    <li><a href="/manageaccount">Zarządzanie Działami</a></li> 	 
+        <li><a href="/departmentlist">Lista Działów</a></li>
+    <li><a href="/newdepartment">Nowy Dział</a></li>
+    <li><a href="/manage/department/">Zarządzanie Działami</a></li> 	 
     </ul>   
     </li>
 

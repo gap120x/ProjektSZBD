@@ -26,7 +26,11 @@ public class DepartmentService {
 	
 	public void delete(Long id) {
 		repo.deleteById(id);
-	}	
+	}
+	
+	public Department getDepartmentByName(String name) {
+		return repo.getDepartmentByName(name);
+	}
 	
 
 }
