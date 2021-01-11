@@ -22,7 +22,7 @@
 <center>
 <h1 id="tytul">Edytuj Hasło Użytkownika ${editUser.nickname}</h1>
 <div id="formdiv">
-<form:form modelAttribute="editUser" method="POST" action="/manageaccount/customer/editpassword/${editUser.id}/save">
+<form:form modelAttribute="editUser" method="POST" action="/manageaccount/editpassword/${editUser.id}/save">
 <label>ID Użytkownika </label>
  <form:input path="id" readonly="true"/>
 <label>Nazwa Użytkownika </label>

@@ -209,7 +209,7 @@ public class UserController {
 	    return "redirect:/manageaccount/customer";
 	}
 	
-	@RequestMapping(value="/manageaccount/customer/editpassword/{id}")
+	@RequestMapping(value="/manageaccount/editpassword/{id}")
 	public String editCustomerPasword(@PathVariable(name = "id") Long id,Model model) {
 		User user = userservice.get(id);
 		user.setPassword("");
@@ -217,15 +217,27 @@ public class UserController {
 	
 	    return "editpassword";
 }
-	@RequestMapping(value="/manageaccount/customer/editpassword/{id}/save", method=RequestMethod.POST)
+	@RequestMapping(value="/manageaccount/editpassword/{id}/save", method=RequestMethod.POST)
 	public String saveeditedCustomerPassword(@ModelAttribute("editUser") User user, Model model) {
 		
 		String pass=user.getPassword();
 	    String codepass= generatepassword.encodepassword(pass);
 	    user.setPassword(codepass); 
-		userservice.save(user);		
-	
-	    return "redirect:/manageaccount/customer";
+		userservice.save(user);
+		String role =  user.getRole();
+		if(role.equalsIgnoreCase("ROLE_CUSTOMERSERVICEUSER"))
+		{
+		    return "redirect:/manageaccount/customerservice";
+		}
+		else if(role.equalsIgnoreCase("ROLE_CUSTOMER"))				
+			{
+		    return "redirect:/manageaccount/customer";
+			}
+		else if(role.equalsIgnoreCase("ROLE_MANAGER"))
+	{
+		return "redirect:/manageaccount/manager";
+	}
+	    return null;
 	}
 	
 	@RequestMapping(value="/manageaccount/customer/editaddress/{id}")
@@ -309,15 +321,151 @@ public String newCustomerServiceUser(Model model) {
 		}
 	
 
-
+ 
 }
 	@RequestMapping("/accountlist/customerservice")
 	public String ViewCustomerServiceUsers(Model model) {		
 		
-		List<CustomerServiceUserDto> customerserviceuserlist =userservice.viewCustomerServiceUser();
+		List<CustomerServiceUserDto> customerserviceuserlist =userservice.viewCustomerServiceUser("ROLE_CUSTOMERSERVICEUSER");
 		model.addAttribute("customerserviceuserlist",customerserviceuserlist);
 		
 		return "customerserviceuserlist";        
+}
+	
+	@RequestMapping("/manageaccount/customerservice")
+	public String EditCustomerServiceUsers(Model model) {		
+		
+		List<CustomerServiceUserDto> customerserviceuserlist =userservice.viewCustomerServiceUser("ROLE_CUSTOMERSERVICEUSER");
+		model.addAttribute("customerserviceuserlist",customerserviceuserlist);
+		return "managecustomerservice";        
+}
+	@RequestMapping("/manageaccount/customerservice/delete/{id}")
+	public String deleteCustomerServiceUser(@PathVariable(name = "id") Long id) {
+		userservice.delete(id);
+
+		return "redirect:/manageaccount/customerservice";
+	}
+	
+	@RequestMapping(value="/manageaccount/customerservice/edit/{id}")
+	public String editCustomerServiceUser(@PathVariable(name = "id") Long id,Model model) {
+		User user = userservice.get(id);
+		CustomerServiceUser customerserviceuser=customerserviceuserservice.get(id);
+		Employee employee = employeeservice.get(id);
+		 List<Department> departmentlist =departmentservice.listAll();
+		model.addAttribute("editUser",user);
+		model.addAttribute("editCustomerServiceUser",customerserviceuser);
+		model.addAttribute("editEmployee",employee);
+		model.addAttribute("departmentlist",departmentlist);
+		
+	    return "editcustomerserviceuser";
+}
+	@RequestMapping(value="/manageaccount/customerservice/edit/{id}/save", method=RequestMethod.POST)
+	public String saveeditedCustomerServiceUser(@ModelAttribute("editUser") User user,@ModelAttribute("editCustomerServiceUser") 
+	CustomerServiceUser customerserviceuser,@ModelAttribute("editEmployee")Employee employee) {
+		userservice.save(user);
+		customerserviceuserservice.save(customerserviceuser);
+		employeeservice.save(employee);
+	    return "redirect:/manageaccount/customerservice";
+	}
+	
+	@RequestMapping(value="/newaccount/manager")
+	public String newManager(Model model) {
+			
+			model.addAttribute("newUser",new User());
+			model.addAttribute("newEmployee",new Employee());
+			model.addAttribute("newCustomerServiceUser",new CustomerServiceUser());
+			List<Department> departmentlist =departmentservice.listAll();
+			model.addAttribute("departmentlist",departmentlist);
+			
+		    return "newmanager";
+		}
+	
+	@RequestMapping(value="/newaccount/manager/save",method=RequestMethod.POST)
+	public String saveManager(@ModelAttribute("newUser") User user,@ModelAttribute("newEmployee") Employee employee,
+			@ModelAttribute("newCustomerServiceUser")CustomerServiceUser customerserviceuser,Model model)
+	{
+		
+		
+		User userExists = userservice.getUserByUsername(user.getNickname());
+		if(userExists != null)
+		{
+			model.addAttribute("newUser",user);
+		    model.addAttribute("newEmployee",employee);
+		    model.addAttribute("newCustomerServiceUser",customerserviceuser);
+		    List<Department> departmentlist =departmentservice.listAll();
+			model.addAttribute("departmentlist",departmentlist);
+		    model.addAttribute("wrongusername","Nazwa Którą wpisałeś jest zajęta! Użyj innej.");
+		    return "newcustomerserviceuser";
+		}
+		else
+		{
+		Department department = employee.getDepartment();
+		department.setLeader(user.getFirstname()+" "+user.getSurname());
+		employee.setUser(user);
+		customerserviceuser.setEmployee(employee);
+		String pass=user.getPassword();
+	    String codepass= generatepassword.encodepassword(pass);
+	    user.setPassword(codepass); 
+		userservice.save(user);		
+		employeeservice.save(employee);
+		customerserviceuserservice.save(customerserviceuser);
+		departmentservice.save(department);
+		return "redirect:/newaccount";
+		} 
+}
+	@RequestMapping("/accountlist/manager")
+	public String ViewManager(Model model) {		
+		
+		List<CustomerServiceUserDto> managerlist =userservice.viewCustomerServiceUser("ROLE_MANAGER");
+		model.addAttribute("managerlist",managerlist);
+		
+		return "managerlist";        
+}
+	@RequestMapping("/manageaccount/manager")
+	public String EditManager(Model model) {		
+		
+		List<CustomerServiceUserDto> managerlist =userservice.viewCustomerServiceUser("ROLE_MANAGER");
+		model.addAttribute("managerlist",managerlist);
+		return "managemanager";        
+}
+	@RequestMapping("/manageaccount/manager/delete/{id}")
+	public String deleteManager(@PathVariable(name = "id") Long id) {
+		userservice.delete(id);
+
+		return "redirect:/manageaccount/manager";
+	}
+	
+	@RequestMapping(value="/manageaccount/manager/edit/{id}")
+	public String newManager(@PathVariable(name = "id") Long id,Model model) {
+			
+		User user = userservice.get(id);
+		CustomerServiceUser customerserviceuser=customerserviceuserservice.get(id);
+		Employee employee = employeeservice.get(id);
+		 List<Department> departmentlist =departmentservice.listAll();
+		model.addAttribute("editUser",user);
+		model.addAttribute("editCustomerServiceUser",customerserviceuser);
+		model.addAttribute("editEmployee",employee);
+		model.addAttribute("departmentlist",departmentlist);
+			
+		    return "editmanager";
+		}
+	
+	@RequestMapping(value="/manageaccount/manager/edit/{id}/save",method=RequestMethod.POST)
+	public String saveManasger(@ModelAttribute("editUser") User user,@ModelAttribute("editEmployee") Employee employee,
+			Model model)
+	{
+		
+		
+	
+		Department department = employee.getDepartment();
+		department.setLeader(user.getFirstname()+" "+user.getSurname());
+		employee.setUser(user);
+		//customerserviceuser.setEmployee(employee);		
+		userservice.save(user);		
+		employeeservice.save(employee);	
+		departmentservice.save(department);
+		return "redirect:/manageaccount/manager";
+		
 }
 	
 

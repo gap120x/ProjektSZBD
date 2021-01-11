@@ -24,7 +24,7 @@
 <center>
 <h1 id="tytul">Dodaj nowe konto Sprzedawcy</h1>
 <div id="formdiv">
-<form:form modelAttribute="newUser" method="POST" action="/newaccount/customerserviceuser/save">
+<form:form modelAttribute="newUser" method="POST" action="/newaccount/manager/save">
 <label>Nazwa Użytkownika </label>
  <form:input required="required" path="nickname"/>
   <div id="wrongusername"><c:if test="${not empty wrongusername}">${wrongusername}</c:if></div>
@@ -36,7 +36,7 @@
    <form:input required="required" type="text" path="surname"/>
     <label>Email </label>
       <form:input required="required" type="email" path="email"/>	      
-<form:input type="hidden" required="required" path="role" value="ROLE_CUSTOMERSERVICEUSER"/>
+<form:input type="hidden" required="required" path="role" value="ROLE_MANAGER"/>
 <label>Czy Aktywne</label>
 	    <form:select required="required" path="enabled">
 		<form:option value="true">Aktywne</form:option>
@@ -57,15 +57,10 @@
 	 <form:select required="required" path="department">
         <form:options items="${departmentlist}" itemValue="id" itemLabel="name" />
     </form:select> 
-	<form:form modelAttribute="newCustomerServiceUser" method="POST">	
-	<label>Target Sprzedażowy</label>
- <form:input required="required" path="salestargetvalue"/>
- 	<label>Target ilości Licencji</label>
- <form:input required="required" path="salestargetlicenses"/>
- 
+	
 	</br>
   <button type="submit">Zapisz</button>
-    </form:form>
+  
   </form:form>
 </form:form>
 

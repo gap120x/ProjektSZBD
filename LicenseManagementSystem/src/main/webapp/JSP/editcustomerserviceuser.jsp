@@ -24,12 +24,14 @@
 <center>
 <h1 id="tytul">Dodaj nowe konto Sprzedawcy</h1>
 <div id="formdiv">
-<form:form modelAttribute="newUser" method="POST" action="/newaccount/customerserviceuser/save">
+<form:form modelAttribute="editUser" method="POST" action="/manageaccount/customerservice/edit/${editUser.id}/save">
+<label>ID </label>
+ <form:input required="required" readonly="true" path="id"/>
 <label>Nazwa Użytkownika </label>
- <form:input required="required" path="nickname"/>
-  <div id="wrongusername"><c:if test="${not empty wrongusername}">${wrongusername}</c:if></div>
-  <label>Hasło </label>
-   <form:input required="required" type="password" path="password"/>
+ <form:input required="required" path="nickname" readonly="true"/>
+
+
+   <form:input required="required" type="hidden" path="password"/>
    <label>Imie </label>
     <form:input required="required" path="firstname"/>
 	 <label>Nazwisko</label>
@@ -42,10 +44,8 @@
 		<form:option value="true">Aktywne</form:option>
 		<form:option value="false"> Zablokowane</form:option>
 		</form:select>
-		<form:form modelAttribute="newEmployee" method="POST">		
-		
- <label>Data Zatrudnienia</label>
- <form:input type="date" required="required" path="employmentdate"/>
+		<form:form modelAttribute="editEmployee" method="POST">	
+ <form:input type="hidden" required="required" path="employmentdate"/>
 
  <label>Pozycja</label>
  <form:input required="required" path="position"/>
@@ -57,7 +57,7 @@
 	 <form:select required="required" path="department">
         <form:options items="${departmentlist}" itemValue="id" itemLabel="name" />
     </form:select> 
-	<form:form modelAttribute="newCustomerServiceUser" method="POST">	
+	<form:form modelAttribute="editCustomerServiceUser" method="POST">	
 	<label>Target Sprzedażowy</label>
  <form:input required="required" path="salestargetvalue"/>
  	<label>Target ilości Licencji</label>
