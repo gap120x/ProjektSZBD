@@ -41,22 +41,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-        	.antMatchers("/produkt","/wyczerpaneproduktlist","/produkt/delete/{id}","/newprodukt","/newprodukt/save","/produkt/edit/{id}",
-        			     "/produkt/edited/save","/produkt/editilosc","/produkt/editilosc/{id}","/produkt/editedilosc/save","/newdostawca",
-        			     "/newdostawca/save","/dostawca","/dostawca/delete/{id}","/dostawca/edit/{id}","/dostawca/edited/save","/newkategoria",
-        			     "/newkategoria/save","/kategoria","/kategoria/delete/{id}","/kategoria/edit/{id}","/kategoria/edited/save",
-        			     "/neworder/create","/neworder/create/add","/neworder/create/add/save","/neworder/create/addprodukt/{id}","/neworder/create/addprodukt/{id}/save",
-        			     "/neworder/create/addprodukt/{id}/delete/{produktid}","/neworder/create/addprodukt/{id}/error","/order/{id}/setstatusaswtrakcierealizacji",
-        			     "/zamowienialist","/zamowienialist/getklient/{id}","/zamowienialist/getadres/{id}","/zamowienialist/getproduktlist/{id}","/zamowienia/manage",
-        			     "/zamowienia/manage/delete/{id}","/zamowienia/manage/setstatus/{id}","/zamowienia/manage/setstatus/{id}/save","/pracowniklist",
-        			     "/user/editpassword/{id}","/user/editedpassword/save","/klientlist","/newklient","/newklient/save","/klient","/klient/delete/{id}","/klient/edit/{id}",
-        			     "/klient/edited/save","/klient/newadres/{id}","/newklient/saveadres","/klient/{id}/viewaddresses","/klient/deleteddresses/{id}","/klient/editadresses/{id}",
-        			     "/klient/editadresses/{id}/save/{klientid}") 
-        	.hasAnyRole("ADMIN","PRACOWNIK")
-        	.antMatchers("/newpracownik","/newpracownik/save","/pracownik","/pracownik/edit/{id}","/pracownik/edited/save","/produktraport","/pracownikraport")
+        	.antMatchers("/newaccount/manager","/newaccount/manager/save","/accountlist/manager","/manageaccount/manager","/manageaccount/manager/edit/{id}",
+        				 "/manageaccount/manager/edit/{id}/save","/newdepartment","/newdepartment/save","/departmentlist","/manage/department","/manage/department/delete/{id}",
+        				 "/manage/department/edit/{id}","/manage/department/edit/{id}/save") 
         	.hasRole("ADMIN")
-        	.antMatchers("/klient/viewmyorders","/zamowienialist/myorders/getadres/{id}","/zamowienialist/myorders/getproduktlist/{id}","/klient/viewmyaccount","/klient/viewmyaddresses")
-        	.hasRole("KLIENT")
+        	.antMatchers()
+        	.hasAnyRole("ADMIN","MANAGER")
           	.anyRequest().authenticated()
             .and()        
             .formLogin().permitAll()
