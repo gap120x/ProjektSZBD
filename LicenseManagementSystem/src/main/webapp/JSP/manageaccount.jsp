@@ -21,12 +21,12 @@
 <div id="site-content">  
 
 <center>
-<h1 id="tytul">Wybierz Typ konta które chcesz stworzyć</h1>
+<h1 id="tytul">Wybierz Typ konta które chcesz Wyświetlić</h1>
 <div id="formdiv">
-<form:form modelAttribute="account" method="POST" action="/newaccount">
+<form:form modelAttribute="account" method="POST" action="/manageaccount">
 <label>Typ Konta</label>	
 	<form:select required="required" path="role">
-     	<form:option value="menadzer">Menedżer</form:option>
+     	<form:option value="manager">Menedżer</form:option>
 		<form:option value="sprzedawca">Sprzedawca</form:option>
 		<form:option value="klient">Klient</form:option>
     </form:select>

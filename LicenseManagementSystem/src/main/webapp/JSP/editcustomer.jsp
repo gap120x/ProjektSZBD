@@ -24,12 +24,12 @@
 <center>
 <h1 id="tytul">Dodaj nowe konto Klienta</h1>
 <div id="formdiv">
-<form:form modelAttribute="newUser" method="POST" action="/newaccount/customer/save">
+<form:form modelAttribute="editUser" method="POST" action="/manageaccount/customer/edit/${editUser.id}/save">
+<label>ID</label>
+ <form:input required="required" path="id" readonly="true"/>
 <label>Nazwa Użytkownika </label>
- <form:input required="required" path="nickname"/>
-  <div id="wrongusername"><c:if test="${not empty wrongusername}">${wrongusername}</c:if></div>
-  <label>Hasło </label>
-   <form:input required="required" type="password" path="password"/>
+ <form:input readonly="true" required="required" path="nickname"/>
+   <form:input required="required" type="hidden" path="password"/>
    <label>Imie </label>
     <form:input required="required" path="firstname"/>
 	 <label>Nazwisko</label>
@@ -42,8 +42,8 @@
 		<form:option value="true">Aktywne</form:option>
 		<form:option value="false"> Zablokowane</form:option>
 		</form:select>
-		<form:form modelAttribute="newCustomer" method="POST" action="newklient/save">		
-		
+		<form:form modelAttribute="editCustomer" method="POST" action="newklient/save">	
+ <form:input type="hidden" path="id"/>
  <label>VAT</label>
  <form:input path="vat"/>
  <label>NIP</label>

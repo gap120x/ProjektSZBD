@@ -4,9 +4,10 @@
 <ul id="menu">
     <li><a href="/">Strona Główna</a></li>
     <li><a>Konta Użytkowników</a>
-    <ul>    
+    <ul>
+        <li><a href="/accountlist">Lista Kont</a></li>
     <li><a href="/newaccount">Nowe konto</a></li>
-    <li><a href="/newaccount">Zarządzanie Kontami</a></li>  	
+    <li><a href="/manageaccount">Zarządzanie Kontami</a></li>  	
 
 	 
     </ul>
