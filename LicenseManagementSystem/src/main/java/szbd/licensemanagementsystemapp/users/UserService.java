@@ -1,5 +1,8 @@
 package szbd.licensemanagementsystemapp.users;
 import org.springframework.stereotype.Service;
+
+import szbd.licensemanagementsystemapp.customers.CustomerDto;
+
 import javax.transaction.Transactional;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +48,9 @@ public class UserService implements UserDetailsService {
 	{
 		 User user = userRepository.getUserByUsername(username);
 		 return user;
+	}
+	public List<CustomerDto> viewCustomer(){
+		return userRepository.viewCustomer();
 	}
 
 }
