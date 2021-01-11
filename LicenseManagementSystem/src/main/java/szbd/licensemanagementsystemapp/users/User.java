@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import szbd.licensemanagementsystemapp.customers.Customer;
+import szbd.licensemanagementsystemapp.employees.Employee;
 
 
 @Entity
@@ -30,6 +31,9 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Customer customer;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Employee employee;
   
     
     public User()

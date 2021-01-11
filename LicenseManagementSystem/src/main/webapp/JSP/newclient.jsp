@@ -42,7 +42,7 @@
 		<form:option value="true">Aktywne</form:option>
 		<form:option value="false"> Zablokowane</form:option>
 		</form:select>
-		<form:form modelAttribute="newCustomer" method="POST" action="newklient/save">		
+		<form:form modelAttribute="newCustomer" method="POST">		
 		
  <label>VAT</label>
  <form:input path="vat"/>

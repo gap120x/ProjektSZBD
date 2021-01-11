@@ -55,6 +55,8 @@
 				   <td data-column="zarzadzanie"><center><a href="/manageaccount/customer/delete/${CustomerDto.userid}"><img border="0" alt="Delete" src="/images/delete-icon-14.jpg" width="30" height="30"></a>
 	  <a href="/manageaccount/customer/edit/${CustomerDto.userid}"><img border="0" alt="Edit" src="/images/editicon.png" width="30" height="30"></a>
 	   <a href="/manageaccount/customer/editpassword/${CustomerDto.userid}"><img border="0" alt="Delete" src="/images/editpassword.png" width="30" height="30"></a>
+	   <a href="/manageaccount/customer/editaddress/${CustomerDto.userid}"><img border="0" alt="addaddress" src="/images/adresicon.png" width="30" height="30"></a>
+	   
 	  </center></li></td>
 
 	

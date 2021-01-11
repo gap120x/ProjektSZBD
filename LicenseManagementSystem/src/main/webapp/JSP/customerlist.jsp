@@ -34,6 +34,8 @@
 		 <th>NIP</th>
 		   <th>Zniżka</th>
 		  <th>Firma</th>
+		  <th>Adres</th>
+		  
 	    </tr>
   </thead>
   <tbody>
@@ -51,6 +53,7 @@
 			  <td data-column="email">${CustomerDto.nip}</td>
 			   <td data-column="email">${CustomerDto.discount}</td>
 			   	   <td data-column="email">${CustomerDto.companyName}</td>
+				   <td data-column="adres"><a href="/manageaccount/customer/viewaddress/${CustomerDto.userid}">Wyświetl</td>  
 
 	
 		    </tr>  

@@ -2,10 +2,18 @@ package szbd.licensemanagementsystemapp.controllers;
 
 
 
+import szbd.licensemanagementsystemapp.adress.BillingAddress;
+import szbd.licensemanagementsystemapp.adress.BillingAddressService;
 import szbd.licensemanagementsystemapp.config.PasswordGenerator;
 import szbd.licensemanagementsystemapp.customers.Customer;
 import szbd.licensemanagementsystemapp.customers.CustomerDto;
 import szbd.licensemanagementsystemapp.customers.CustomerService;
+import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUser;
+import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUserService;
+import szbd.licensemanagementsystemapp.department.Department;
+import szbd.licensemanagementsystemapp.department.DepartmentService;
+import szbd.licensemanagementsystemapp.employees.Employee;
+import szbd.licensemanagementsystemapp.employees.EmployeeService;
 import szbd.licensemanagementsystemapp.users.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +34,14 @@ public class UserController {
 	CustomerService customerservice;
 	@Autowired
 	PasswordGenerator generatepassword;
+	@Autowired
+	BillingAddressService adresservice;
+	@Autowired
+	EmployeeService employeeservice;
+	@Autowired
+	CustomerServiceUserService customerserviceuserservice;
+	@Autowired
+	DepartmentService departmentservice;
 	
 
 	@RequestMapping("/newaccount")
@@ -210,6 +226,90 @@ public class UserController {
 	
 	    return "redirect:/manageaccount/customer";
 	}
+	
+	@RequestMapping(value="/manageaccount/customer/editaddress/{id}")
+	public String editCustomeraddres(@PathVariable(name = "id") Long id,Model model) {
+	
+		Customer customer = customerservice.get(id);
+		customer.getBillingaddress();
+		if(	customer.getBillingaddress()!=null)
+		{
+			model.addAttribute("address",customer.getBillingaddress());
+		}
+		else
+		{
+			model.addAttribute("address",new BillingAddress());
+		}
+		model.addAttribute("customerid",id);
+	
+	    return "editaddress";
+}
+	@RequestMapping(value="/manageaccount/customer/editaddress/{id}/save", method=RequestMethod.POST)
+	public String SaveAddress(@PathVariable(name = "id") Long id,@ModelAttribute("address") BillingAddress billingAddress, Model model) {
+		
+		adresservice.save(billingAddress);
+		Customer customer = customerservice.get(id);
+		customer.setBillingaddress(billingAddress);
+		customerservice.save(customer);
+	
+	    return "redirect:/manageaccount/customer";
+	}
+	@RequestMapping(value="/manageaccount/customer/viewaddress/{id}")
+	public String viewCustomeraddres(@PathVariable(name = "id") Long id,Model model) {
+	
+		Customer customer = customerservice.get(id);
+		BillingAddress billingAddress=customer.getBillingaddress();	
+		model.addAttribute("customeradres",billingAddress);
+	
+	    return "viewaddress";
+}
+	
+	@RequestMapping(value="/newaccount/customerservice")
+public String newCustomerServiceUser(Model model) {
+		
+		model.addAttribute("newUser",new User());
+		model.addAttribute("newEmployee",new Employee());
+		model.addAttribute("newCustomerServiceUser",new CustomerServiceUser());
+		List<Department> departmentlist =departmentservice.listAll();
+		model.addAttribute("departmentlist",departmentlist);
+		
+	    return "newcustomerserviceuser";
+	}
+	
+	@RequestMapping(value="/newaccount/customerserviceuser/save",method=RequestMethod.POST)
+	public String saveCustomerServiceUser(@ModelAttribute("newUser") User user,@ModelAttribute("newEmployee") Employee employee,
+			@ModelAttribute("newCustomerServiceUser")CustomerServiceUser customerserviceuser,Model model)
+	{
+		
+		
+		User userExists = userservice.getUserByUsername(user.getNickname());
+		if(userExists != null)
+		{
+			model.addAttribute("newUser",user);
+		    model.addAttribute("newEmployee",employee);
+		    model.addAttribute("newCustomerServiceUser",customerserviceuser);
+		    List<Department> departmentlist =departmentservice.listAll();
+			model.addAttribute("departmentlist",departmentlist);
+		    model.addAttribute("wrongusername","Nazwa Którą wpisałeś jest zajęta! Użyj innej.");
+		    return "newcustomerserviceuser";
+		}
+		else
+		{
+			
+		employee.setUser(user);
+		customerserviceuser.setEmployee(employee);
+		String pass=user.getPassword();
+	    String codepass= generatepassword.encodepassword(pass);
+	    user.setPassword(codepass); 
+		userservice.save(user);		
+		employeeservice.save(employee);
+		customerserviceuserservice.save(customerserviceuser);
+		return "redirect:/newaccount";
+		}
+	
+
+
+}
 	
 
 	

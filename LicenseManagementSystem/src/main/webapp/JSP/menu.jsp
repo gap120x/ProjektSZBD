@@ -7,11 +7,15 @@
     <ul>
         <li><a href="/accountlist">Lista Kont</a></li>
     <li><a href="/newaccount">Nowe konto</a></li>
-    <li><a href="/manageaccount">Zarządzanie Kontami</a></li>  	
-
-	 
-    </ul>
-   
+    <li><a href="/manageaccount">Zarządzanie Kontami</a></li> 	 
+    </ul>   
+    </li>
+	 <li><a>Działy</a>
+    <ul>
+        <li><a href="/">Lista Działów</a></li>
+    <li><a href="/newaccount">Nowy Dział</a></li>
+    <li><a href="/manageaccount">Zarządzanie Działami</a></li> 	 
+    </ul>   
     </li>
 
     
