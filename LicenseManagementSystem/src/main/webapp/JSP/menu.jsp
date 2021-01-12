@@ -63,11 +63,13 @@
 	<li><a>Zamówienia</a>
     <ul>
         <li><a href="/accountlist/customer">Wyświetl listę</a></li>
-    <li><a href="/newaccount/customer">Nowy Klient</a></li>
+    <li><a href="/neworder/create">Nowe Zamówienie</a></li>
     <li><a href="/manageaccount/customer">Zarządzanie Klientami</a></li> 	 
     </ul>   
     </li>
       </sec:authorize>
+	   <sec:authorize access="hasRole('ROLE_CUSTOMER')">
+	  <li><a href="/viewmylicense">Wyświetl Moje Licencje</a></li></sec:authorize>
     <li>
      <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

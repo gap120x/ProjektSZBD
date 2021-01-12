@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import szbd.licensemanagementsystemapp.licenses.License;
+import szbd.licensemanagementsystemapp.productlists.ProductList;
 import szbd.licensemanagementsystemapp.softwares.Software;
 
 @Entity
@@ -34,7 +35,9 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
   	private Set<License> license = new HashSet<License>();
-	
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+	private Set<ProductList> productlist = new HashSet<ProductList>();
     public Long getId() {
 		return id;
 	}
@@ -64,6 +67,12 @@ public class Product {
 	}
 	public void setLicense(Set<License> license) {
 		this.license = license;
+	}
+	public Set<ProductList> getProductlist() {
+		return productlist;
+	}
+	public void setProductlist(Set<ProductList> productlist) {
+		this.productlist = productlist;
 	}
 	
     }

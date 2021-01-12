@@ -1,5 +1,7 @@
 package szbd.licensemanagementsystemapp.controllers;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +107,16 @@ public class LicenseController {
 		licenseservice.save(license);
 		return "redirect:/license/manage";
 	}
-	
+	@RequestMapping(value="/viewmylicense")
+	public String viewLicenseByCustomer(Model model,HttpServletRequest request)
+			
+	{
+		Principal principal = request.getUserPrincipal();
+		User client = userservice.getUserByUsername(principal.getName());
+		Customer customer =client.getCustomer();
+		model.addAttribute("licenselist",licenseservice.viewLicenseByCustomer(customer));
+		return "viewmylicense";
+	}
 	
 
 	

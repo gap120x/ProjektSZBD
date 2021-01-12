@@ -81,6 +81,12 @@ public class Employee {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	public CustomerServiceUser getCustomerservicesser() {
+		return customerServiceUser;
+	}
+	public void setCustomerserviceuser(CustomerServiceUser customerServiceUser) {
+		this.customerServiceUser = customerServiceUser;
+	}
 	
 	
 	
