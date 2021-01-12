@@ -23,5 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     		+ "u.enabled,e.employmentDate,e.position,d.name,e.basicSalary,e.workingHours,c.salesTargetValue,c.salesTargetLicenses) "
 			+ "FROM User u RIGHT JOIN u.employee e RIGHT JOIN e.customerServiceUser c INNER JOIN e.department d where u.role = :role")
     	public List<CustomerServiceUserDto> viewCustomerServiceUser(@Param("role") String role);
+    @Query("SELECT new szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUserDto(u.id,u.nickname,u.email,u.firstname,u.surname,u.role,"
+    		+ "u.enabled,e.employmentDate,e.position,d.name,e.basicSalary,e.workingHours,c.salesTargetValue,c.salesTargetLicenses) "
+			+ "FROM User u RIGHT JOIN u.employee e RIGHT JOIN e.customerServiceUser c INNER JOIN e.department d where u.role = :role and d.name = :name")
+    	public List<CustomerServiceUserDto> viewCustomerServiceUserByManager(@Param("role") String role,@Param("name") String name);
     
 }

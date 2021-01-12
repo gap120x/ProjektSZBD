@@ -56,4 +56,7 @@ public class UserService implements UserDetailsService {
 	public List<CustomerServiceUserDto> viewCustomerServiceUser(String role){
 		return userRepository.viewCustomerServiceUser(role);
 	}
+	public List<CustomerServiceUserDto> viewCustomerServiceUserByManager(String role,String name){
+		return userRepository.viewCustomerServiceUserByManager(role,name);
+	}
 }

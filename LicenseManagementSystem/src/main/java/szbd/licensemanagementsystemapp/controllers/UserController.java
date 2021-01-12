@@ -16,7 +16,12 @@ import szbd.licensemanagementsystemapp.department.DepartmentService;
 import szbd.licensemanagementsystemapp.employees.Employee;
 import szbd.licensemanagementsystemapp.employees.EmployeeService;
 import szbd.licensemanagementsystemapp.users.*;
+
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,7 +89,7 @@ public class UserController {
 	}
 	@RequestMapping(value="/newaccount/customer/save",method=RequestMethod.POST)
 	public String saveCustomerAccount(@ModelAttribute("newUser") User user,@ModelAttribute("newCustomer") Customer customer,
-			Model model)
+			Model model,HttpServletRequest request)
 	{
 		
 		customer.setUser(user);
@@ -104,12 +109,19 @@ public class UserController {
 	    String codepass= generatepassword.encodepassword(pass);
 	    user.setPassword(codepass); 
 		userservice.save(user);		
-		customerservice.save(customer);	 
+		customerservice.save(customer);
+		Principal principal = request.getUserPrincipal();
+		User getrole = userservice.getUserByUsername(principal.getName());
+		String role =getrole.getRole();
+		if(role!="ROLE_ADMIN")
+		{
+			return "redirect:/newaccount/customer";
+		}
+		else
+		{
 		return "redirect:/newaccount";
 		}
-	
-
-
+		}
 }
 	
 	@RequestMapping("/accountlist")
@@ -218,7 +230,7 @@ public class UserController {
 	    return "editpassword";
 }
 	@RequestMapping(value="/manageaccount/editpassword/{id}/save", method=RequestMethod.POST)
-	public String saveeditedCustomerPassword(@ModelAttribute("editUser") User user, Model model) {
+	public String saveeditedCustomerPassword(@ModelAttribute("editUser") User user, Model model,HttpServletRequest request) {
 		
 		String pass=user.getPassword();
 	    String codepass= generatepassword.encodepassword(pass);
@@ -227,7 +239,17 @@ public class UserController {
 		String role =  user.getRole();
 		if(role.equalsIgnoreCase("ROLE_CUSTOMERSERVICEUSER"))
 		{
-		    return "redirect:/manageaccount/customerservice";
+			Principal principal = request.getUserPrincipal();
+			User getrole = userservice.getUserByUsername(principal.getName());
+			String rolee =getrole.getRole();
+			if(rolee!="ROLE_ADMIN")
+			{
+				return "redirect:/mydepartment/manageaccount/customerservice";
+			}
+			else
+			{
+			return "redirect:/manageaccount/customerservice";
+			}
 		}
 		else if(role.equalsIgnoreCase("ROLE_CUSTOMER"))				
 			{
@@ -316,7 +338,7 @@ public String newCustomerServiceUser(Model model) {
 	    user.setPassword(codepass); 
 		userservice.save(user);		
 		employeeservice.save(employee);
-		customerserviceuserservice.save(customerserviceuser);
+		customerserviceuserservice.save(customerserviceuser);		
 		return "redirect:/newaccount";
 		}
 	
@@ -340,10 +362,19 @@ public String newCustomerServiceUser(Model model) {
 		return "managecustomerservice";        
 }
 	@RequestMapping("/manageaccount/customerservice/delete/{id}")
-	public String deleteCustomerServiceUser(@PathVariable(name = "id") Long id) {
+	public String deleteCustomerServiceUser(@PathVariable(name = "id") Long id,HttpServletRequest request) {
 		userservice.delete(id);
-
+		Principal principal = request.getUserPrincipal();
+		User getrole = userservice.getUserByUsername(principal.getName());
+		String role =getrole.getRole();
+		if(role!="ROLE_ADMIN")
+		{
+			return "redirect:/mydepartment/manageaccount/customerservice";
+		}
+		else
+		{
 		return "redirect:/manageaccount/customerservice";
+		}
 	}
 	
 	@RequestMapping(value="/manageaccount/customerservice/edit/{id}")
@@ -361,11 +392,21 @@ public String newCustomerServiceUser(Model model) {
 }
 	@RequestMapping(value="/manageaccount/customerservice/edit/{id}/save", method=RequestMethod.POST)
 	public String saveeditedCustomerServiceUser(@ModelAttribute("editUser") User user,@ModelAttribute("editCustomerServiceUser") 
-	CustomerServiceUser customerserviceuser,@ModelAttribute("editEmployee")Employee employee) {
+	CustomerServiceUser customerserviceuser,@ModelAttribute("editEmployee")Employee employee,HttpServletRequest request) {
 		userservice.save(user);
 		customerserviceuserservice.save(customerserviceuser);
 		employeeservice.save(employee);
-	    return "redirect:/manageaccount/customerservice";
+		Principal principal = request.getUserPrincipal();
+		User getrole = userservice.getUserByUsername(principal.getName());
+		String role =getrole.getRole();
+		if(role!="ROLE_ADMIN")
+		{
+			return "redirect:/mydepartment/manageaccount/customerservice";
+		}
+		else
+		{
+		return "redirect:/manageaccount/customerservice";
+		}
 	}
 	
 	@RequestMapping(value="/newaccount/manager")
@@ -466,6 +507,70 @@ public String newCustomerServiceUser(Model model) {
 		departmentservice.save(department);
 		return "redirect:/manageaccount/manager";
 		
+}
+	@RequestMapping("/mydepartment/customerservicelist")
+	public String ViewCustomerServiceUsersbyManager(Model model,HttpServletRequest request) {		
+		 Principal principal = request.getUserPrincipal();
+		User manager = userservice.getUserByUsername(principal.getName());
+		Employee managerr = manager.getEmployee();
+		
+		List<CustomerServiceUserDto> customerserviceuserlist =userservice.viewCustomerServiceUserByManager("ROLE_CUSTOMERSERVICEUSER",managerr.getDepartment().getName());
+		model.addAttribute("customerserviceuserlist",customerserviceuserlist);
+		
+		return "customerserviceuserlist";        
+}
+	@RequestMapping("/mydepartment/newcustomerserviceuser")
+	public String newCustomerServiceUserByManager(Model model,HttpServletRequest request) {		
+		 Principal principal = request.getUserPrincipal();
+		User manager = userservice.getUserByUsername(principal.getName());
+		Employee managerr = manager.getEmployee();
+		Employee newemployee = new Employee();
+		newemployee.setDepartment(managerr.getDepartment());
+		model.addAttribute("newUser",new User());
+		model.addAttribute("newEmployee",newemployee);		
+		model.addAttribute("newCustomerServiceUser",new CustomerServiceUser());		
+		model.addAttribute("department",managerr.getDepartment().getName());
+		
+	    return "newcustomerserviceuserbymanager";
+		       
+}
+	@RequestMapping(value="mydepartment/newaccountcustomerserviceuser/save",method=RequestMethod.POST)
+	public String saveCustomerServiceUserbyManager(@ModelAttribute("newUser") User user,@ModelAttribute("newEmployee") Employee employee,
+			@ModelAttribute("newCustomerServiceUser")CustomerServiceUser customerserviceuser,Model model)
+	{
+		
+		
+		User userExists = userservice.getUserByUsername(user.getNickname());
+		if(userExists != null)
+		{
+			model.addAttribute("newUser",user);
+		    model.addAttribute("newEmployee",employee);
+		    model.addAttribute("newCustomerServiceUser",customerserviceuser);		  
+		    model.addAttribute("wrongusername","Nazwa Którą wpisałeś jest zajęta! Użyj innej.");
+		    return "newcustomerserviceuserbymanager";
+		}
+		else
+		{
+			
+		employee.setUser(user);
+		customerserviceuser.setEmployee(employee);
+		String pass=user.getPassword();
+	    String codepass= generatepassword.encodepassword(pass);
+	    user.setPassword(codepass); 
+		userservice.save(user);		
+		employeeservice.save(employee);
+		customerserviceuserservice.save(customerserviceuser);		
+		return "redirect:/mydepartment/newcustomerserviceuser";
+		} 
+}
+	@RequestMapping("mydepartment/manageaccount/customerservice")
+	public String EditCustomerServiceUsersByManager(Model model,HttpServletRequest request) {		
+		 Principal principal = request.getUserPrincipal();
+			User manager = userservice.getUserByUsername(principal.getName());
+			Employee managerr = manager.getEmployee();
+		List<CustomerServiceUserDto> customerserviceuserlist =userservice.viewCustomerServiceUserByManager("ROLE_CUSTOMERSERVICEUSER",managerr.getDepartment().getName());
+		model.addAttribute("customerserviceuserlist",customerserviceuserlist);
+		return "managecustomerservice";        
 }
 	
 
