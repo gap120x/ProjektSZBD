@@ -37,6 +37,34 @@
     </ul>   
     </li>
       </sec:authorize>
+	  	<sec:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMERSERVICEUSER')">
+	<li><a>Produkty</a>
+    <ul>
+        <li><a href="/productlist">Wyświetl listę Produktów</a></li>
+    <li><a href="/softwarelist">Wyświetl listę Software</a></li>
+    <li><a href="/newsoftware">Nowy Software</a></li>
+ <li><a href="/newproduct">Nowy Produkt</a></li> 		
+    </ul>   
+    </li>
+      </sec:authorize>
+	   	<sec:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMERSERVICEUSER')">
+	<li><a>Licencje</a>
+    <ul>
+        <li><a href="/accountlist/customer">Wyświetl listę</a></li>
+    <li><a href="/newaccount/customer">Nowy Klient</a></li>
+    <li><a href="/manageaccount/customer">Zarządzanie Klientami</a></li> 	 
+    </ul>   
+    </li>
+      </sec:authorize>
+	   	<sec:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMERSERVICEUSER')">
+	<li><a>Zamówienia</a>
+    <ul>
+        <li><a href="/accountlist/customer">Wyświetl listę</a></li>
+    <li><a href="/newaccount/customer">Nowy Klient</a></li>
+    <li><a href="/manageaccount/customer">Zarządzanie Klientami</a></li> 	 
+    </ul>   
+    </li>
+      </sec:authorize>
     <li>
      <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
