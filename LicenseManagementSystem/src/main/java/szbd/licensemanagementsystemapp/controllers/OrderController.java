@@ -126,6 +126,16 @@ public class OrderController {
 	       return "redirect:/neworder/create/addproduct/{id}";	     
 	        
 	    }
+	  @RequestMapping(value = "/neworder/create/addproduct/{id}/end")	 
+	    public String endOrder(@PathVariable(name = "id") Long id) 
+	  {	        
+		  Order order = orderservice.get(id);		 
+		  order.setStatus("Oczekiwanie na płatność");
+		  orderservice.save(order);
+	
+	       return "redirect:/";	     
+	        
+	    }
 	 
 	 
 	 

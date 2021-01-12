@@ -52,6 +52,7 @@
   </tbody>
 </table>
 <center>
+<button onclick="window.location.href='/neworder/create/addproduct/${newProductList.order.id}/end'">Zakończ Zamówienie</button>
 <h1 id="tytul">Wybierz Produkt Który chcesz dodać do zamówienia</h1>
 <div id="formdiv">
 <form:form modelAttribute="newProductList" method="POST" action="/neworder/create/addproduct/${newProductList.order.id}/save">
