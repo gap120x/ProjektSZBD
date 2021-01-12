@@ -55,7 +55,7 @@
     <ul>
         <li><a href="/license/view">Wyświetl listę</a></li>
     <li><a href="/newlicense">Stwórz nową licencje</a></li>
-    <li><a href="/">Zarządzanie Klientami</a></li> 	 
+    <li><a href="/license/manage">Zarządzanie Licencjami</a></li> 	 
     </ul>   
     </li>
       </sec:authorize>

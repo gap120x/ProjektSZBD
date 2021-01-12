@@ -17,10 +17,10 @@ public class LicenseDto {
 		this.expirationDate = expirationDate;
 		this.softwareName = softwareName;
 	}
-	public Long getLicenseId() {
+	public Long getLicenseid() {
 		return licenseId;
 	}
-	public void setLicenseId(Long licenseId) {
+	public void setLicenseid(Long licenseId) {
 		this.licenseId = licenseId;
 	}
 	public String getLicensekey() {
