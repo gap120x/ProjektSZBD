@@ -1,5 +1,9 @@
 package szbd.licensemanagementsystemapp.customers;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,10 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import szbd.licensemanagementsystemapp.adress.BillingAddress;
+import szbd.licensemanagementsystemapp.employees.Employee;
+import szbd.licensemanagementsystemapp.licenses.License;
 import szbd.licensemanagementsystemapp.users.*;
 
 
@@ -31,6 +38,9 @@ public class Customer {
 	  	@OneToOne(fetch = FetchType.LAZY, optional = true)
 	     @JoinColumn(name = "billing_address_id", nullable = true)
 	  	private BillingAddress billingAddress;
+	  	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
+	            cascade = CascadeType.ALL)
+	  	private Set<License> license = new HashSet<License>();
 	  	
 		public Long getId() {
 			return id;
@@ -74,11 +84,12 @@ public class Customer {
 		public void setBillingaddress(BillingAddress billingAddress) {
 			this.billingAddress = billingAddress;
 		}
+		public Set<License> getLicense() {
+			return license;
+		}
+		public void setLicense(Set<License> license) {
+			this.license = license;
+		}
 		
-	  	
-	  	
-		
-	  	
-	  	
 	  	
 }

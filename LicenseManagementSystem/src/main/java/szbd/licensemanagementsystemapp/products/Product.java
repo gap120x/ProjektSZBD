@@ -1,5 +1,9 @@
 package szbd.licensemanagementsystemapp.products;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,8 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import szbd.licensemanagementsystemapp.licenses.License;
 import szbd.licensemanagementsystemapp.softwares.Software;
 
 @Entity
@@ -25,6 +31,9 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "software_id", nullable = false)
     private Software software;
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+  	private Set<License> license = new HashSet<License>();
 	
     public Long getId() {
 		return id;
@@ -49,5 +58,12 @@ public class Product {
 	}
 	public void setSoftware(Software software) {
 		this.software = software;
-	}     
+	}
+	public Set<License> getLicense() {
+		return license;
+	}
+	public void setLicense(Set<License> license) {
+		this.license = license;
+	}
+	
     }

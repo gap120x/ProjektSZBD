@@ -86,6 +86,10 @@ public class CustomerDto {
 		public void setCompanyName(String companyName) {
 			this.companyName = companyName;
 		}
+		public String getFirstnameandsurname()
+		{
+			return firstname+" "+surname;
+		}
 		public CustomerDto(Long userid, String nickname, String password, String email, String firstname,
 				String surname, String role, boolean enabled, String vat, String nip, float discount,
 				String companyName) {

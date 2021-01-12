@@ -54,6 +54,9 @@ public class ProductDto {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-    
+	
+	public String getnameandprice() {
+		return name+" "+price+ " "+currency;
+	}
 
 }

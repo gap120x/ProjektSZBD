@@ -53,9 +53,9 @@
 	   	<sec:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMERSERVICEUSER')">
 	<li><a>Licencje</a>
     <ul>
-        <li><a href="/accountlist/customer">Wyświetl listę</a></li>
-    <li><a href="/newaccount/customer">Nowy Klient</a></li>
-    <li><a href="/manageaccount/customer">Zarządzanie Klientami</a></li> 	 
+        <li><a href="/">Wyświetl listę</a></li>
+    <li><a href="/newlicense">Stwórz nową licencje</a></li>
+    <li><a href="/">Zarządzanie Klientami</a></li> 	 
     </ul>   
     </li>
       </sec:authorize>
