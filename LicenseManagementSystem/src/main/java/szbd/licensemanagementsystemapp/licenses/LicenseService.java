@@ -3,8 +3,11 @@ package szbd.licensemanagementsystemapp.licenses;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import szbd.licensemanagementsystemapp.customers.Customer;
 
 @Service
 @Transactional
@@ -28,5 +31,8 @@ public class LicenseService {
 	public void delete(Long id) {
 		repo.deleteById(id);
 	}	
-
+	public List<LicenseDto> viewLicenseByCustomer(Customer customer)
+	{
+		return repo.viewLicenseByCustomer(customer);
+	}
 }
