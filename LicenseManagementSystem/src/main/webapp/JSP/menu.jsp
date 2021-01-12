@@ -43,7 +43,10 @@
         <li><a href="/productlist">Wyświetl listę Produktów</a></li>
     <li><a href="/softwarelist">Wyświetl listę Software</a></li>
     <li><a href="/newsoftware">Nowy Software</a></li>
- <li><a href="/newproduct">Nowy Produkt</a></li> 		
+ <li><a href="/newproduct">Nowy Produkt</a></li>
+  <li><a href="/managesoftware">Zarządzanie Software</a></li>
+  <li><a href="/manageproduct">Zarządzanie Produktem</a></li>
+
     </ul>   
     </li>
       </sec:authorize>

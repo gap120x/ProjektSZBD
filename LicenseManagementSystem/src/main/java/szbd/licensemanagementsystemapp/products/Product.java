@@ -25,7 +25,8 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "software_id", nullable = false)
     private Software software;
-	public Long getId() {
+	
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
@@ -48,9 +49,5 @@ public class Product {
 	}
 	public void setSoftware(Software software) {
 		this.software = software;
-	}
-    
-    
-    
-
-}
+	}     
+    }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -75,6 +76,67 @@ public class ProductController {
 	{		
 		model.addAttribute("productlist",productservice.viewAllProduct());		
 		return "productlist";
+		
+	}
+	
+	@RequestMapping(value="/managesoftware")
+	public String manageSoftware(Model model)
+	
+	{		
+		model.addAttribute("softwarelist",softwareservice.listAll());		
+		return "managesoftware";
+		
+	}
+	@RequestMapping(value="/manageproduct")
+	public String manageProduct(Model model)
+	
+	{		
+		model.addAttribute("productlist",productservice.viewAllProduct());		
+		return "manageproduct";
+		
+	}
+	@RequestMapping("/managesoftware/delete/{id}")
+	public String deleteSoftware(@PathVariable(name = "id") Long id) {
+		softwareservice.delete(id);
+
+		return "redirect:/managesoftware";
+	}
+	
+	@RequestMapping(value="/managesoftware/edit/{id}")
+	public String editSoftware(@PathVariable(name = "id") Long id,Model model) {
+		Software software = softwareservice.get(id);	
+		model.addAttribute("editSoftware",software);
+	
+	    return "editsoftware";
+}
+	
+	@RequestMapping(value="/managesoftware/edit/save",method=RequestMethod.POST)
+	public String saveEditSoftware(@ModelAttribute("editSoftware") Software software)
+	{
+			softwareservice.save(software);
+			return "redirect:/managesoftware";		
+		
+	}
+	@RequestMapping("/manageproduct/delete/{id}")
+	public String deleteProduct(@PathVariable(name = "id") Long id) {
+		productservice.delete(id);
+
+		return "redirect:/manageproduct";
+	}
+	
+	@RequestMapping(value="/manageproduct/edit/{id}")
+	public String editProduct(@PathVariable(name = "id") Long id,Model model) {
+		Product product = productservice.get(id);	
+		model.addAttribute("editProduct",product);
+		model.addAttribute("softwarelist", softwareservice.listAll());
+	    return "editproduct";
+}
+	
+	@RequestMapping(value="/manageproduct/edit/save",method=RequestMethod.POST)
+	public String saveEditProduct(@ModelAttribute("editProduct") Product product)
+	{
+			productservice.save(product);
+			return "redirect:/manageproduct";		
 		
 	}
 

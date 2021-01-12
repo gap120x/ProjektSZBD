@@ -1,8 +1,7 @@
 package szbd.licensemanagementsystemapp.products;
-
 import java.time.LocalDate;
-
 public class ProductDto {
+	
 	private Long productid;
 	private String name;
     private LocalDate releaseDate;
@@ -56,5 +55,5 @@ public class ProductDto {
 		this.currency = currency;
 	}
     
-    
+
 }
