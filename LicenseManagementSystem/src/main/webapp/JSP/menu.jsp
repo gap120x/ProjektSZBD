@@ -83,6 +83,15 @@
     </ul>   
     </li>
       </sec:authorize>
+	    	<sec:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMERSERVICEUSER')">
+	<li><a>Baza Wiedzy</a>
+    <ul>
+        <li><a href="/viewarticles">Wyświetl listę</a></li>
+    <li><a href="/newarticle">Nowy Artykuł</a></li>
+    <li><a href="/editarticles">Edytuj Artykuły</a></li> 	 
+    </ul>   
+    </li>
+      </sec:authorize>
     <li>
      <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

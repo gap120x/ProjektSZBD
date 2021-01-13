@@ -13,10 +13,14 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+
+
 import szbd.licensemanagementsystemapp.employees.Employee;
 import szbd.licensemanagementsystemapp.offer.Offer;
 import szbd.licensemanagementsystemapp.orders.Order;
 import szbd.licensemanagementsystemapp.users.User;
+import szbd.licensemanagementsystemapp.updates.Update;
 
 @Entity
 @Table(name = "customer_service_user")
@@ -36,6 +40,9 @@ public class CustomerServiceUser {
 	@OneToMany(mappedBy = "customerserviceuser", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
 	private Set<Offer> offer = new HashSet<Offer>();
+	@OneToMany(mappedBy = "customerserviceuser", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+	private Set<Update> update = new HashSet<Update>();
 	public Long getId() {
 		return id;
 	}
