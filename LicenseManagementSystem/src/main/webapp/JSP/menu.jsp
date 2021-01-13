@@ -79,7 +79,7 @@
     <ul>
         <li><a href="/customerserviceuser/viewoffers">Wyświetl listę</a></li>
     <li><a href="/newoffer">Nowa Oferta</a></li>
-    <li><a href="/order/manage">Zarządzanie Wysłanymi ofertami</a></li> 	 
+    <li><a href="/customerserviceuser/manageoffers">Edytuj Oferty</a></li> 	 
     </ul>   
     </li>
       </sec:authorize>

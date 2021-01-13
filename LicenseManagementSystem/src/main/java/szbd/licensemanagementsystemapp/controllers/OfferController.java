@@ -92,5 +92,54 @@ public class OfferController {
 		
 	}
 	
+	@RequestMapping(value="/customerserviceuser/manageoffers")
+	public String manageOfferbyEmployee(Model model,HttpServletRequest request)
+	
+	{
+		
+		 Principal principal = request.getUserPrincipal();
+	       User user =userservice.getUserByUsername(principal.getName());
+	     Employee employee = user.getEmployee();
+	     CustomerServiceUser customerserviceuser = employee.getCustomerservicesser();	    		 
+	      model.addAttribute("offerlist",offerservice.viewOfferByCustomerserviceuserr(customerserviceuser));
+	
+		return "manageoffer";
+		
+	}
+	@RequestMapping(value="/customerserviceuser/manageoffers/delete/{id}")
+	public String deleteOffer(@PathVariable(name = "id") Long id)
+	
+	{
+		
+		 offerservice.delete(id);
+
+	
+		return "redirect:/customerserviceuser/manageoffers/";
+		
+	}
+	
+	@RequestMapping(value="/customerserviceuser/manageoffers/edit/{id}")
+	public String deleteOffer(@PathVariable(name = "id") Long id,Model model)
+	
+	{
+		
+		 Offer offer = offerservice.get(id);
+		 model.addAttribute("offer",offer);
+
+	
+		return "editoffer";
+		
+	}
+	
+	@RequestMapping(value = "/editoffer/save")	 
+    public String saveEditedOrder(@ModelAttribute("offer") Offer offer) 
+  {	        
+	
+       offerservice.save(offer);       
+	   
+       return "redirect:/customerserviceuser/manageoffers/";	     
+        
+    }
+	
 	
 }
