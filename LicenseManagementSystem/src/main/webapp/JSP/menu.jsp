@@ -72,7 +72,17 @@
 	  <li><a href="/viewmyorders">Wyświetl Moje Zamówienia</a></li></sec:authorize>
 	   <sec:authorize access="hasRole('ROLE_CUSTOMER')">
 	  <li><a href="/viewmylicense">Wyświetl Moje Licencje</a></li></sec:authorize>
-	  
+	  	   <sec:authorize access="hasRole('ROLE_CUSTOMER')">
+	   <li><a href="/viemyoffers">Wyświetl Moje Oferty</a></li></sec:authorize>
+	   	<sec:authorize access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMERSERVICEUSER')">
+	<li><a>Oferty</a>
+    <ul>
+        <li><a href="/customerserviceuser/viewoffers">Wyświetl listę</a></li>
+    <li><a href="/newoffer">Nowa Oferta</a></li>
+    <li><a href="/order/manage">Zarządzanie Wysłanymi ofertami</a></li> 	 
+    </ul>   
+    </li>
+      </sec:authorize>
     <li>
      <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

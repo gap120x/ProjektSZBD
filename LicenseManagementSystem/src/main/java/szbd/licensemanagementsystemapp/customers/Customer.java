@@ -18,7 +18,9 @@ import javax.persistence.Table;
 import szbd.licensemanagementsystemapp.adress.BillingAddress;
 import szbd.licensemanagementsystemapp.employees.Employee;
 import szbd.licensemanagementsystemapp.licenses.License;
+import szbd.licensemanagementsystemapp.offer.Offer;
 import szbd.licensemanagementsystemapp.orders.Order;
+import szbd.licensemanagementsystemapp.productlists.ProductList;
 import szbd.licensemanagementsystemapp.users.*;
 
 
@@ -45,6 +47,9 @@ public class Customer {
 	  	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
 	            cascade = CascadeType.ALL)
 		private Set<Order> order = new HashSet<Order>();
+	 	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,
+	            cascade = CascadeType.ALL)
+		private Set<Offer> offer = new HashSet<Offer>();
 	  	
 		public Long getId() {
 			return id;
@@ -99,6 +104,12 @@ public class Customer {
 		}
 		public void setOrder(Set<Order> order) {
 			this.order = order;
+		}
+		public Set<Offer> getOffer() {
+			return offer;
+		}
+		public void setOffer(Set<Offer> offer) {
+			this.offer = offer;
 		}
 		
 		

@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import szbd.licensemanagementsystemapp.employees.Employee;
+import szbd.licensemanagementsystemapp.offer.Offer;
 import szbd.licensemanagementsystemapp.orders.Order;
 import szbd.licensemanagementsystemapp.users.User;
 
@@ -32,6 +33,9 @@ public class CustomerServiceUser {
 	@OneToMany(mappedBy = "customerserviceuser", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
 	private Set<Order> order = new HashSet<Order>();
+	@OneToMany(mappedBy = "customerserviceuser", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+	private Set<Offer> offer = new HashSet<Offer>();
 	public Long getId() {
 		return id;
 	}
@@ -61,6 +65,12 @@ public class CustomerServiceUser {
 	}
 	public void setOrder(Set<Order> order) {
 		this.order = order;
+	}
+	public Set<Offer> getOffer() {
+		return offer;
+	}
+	public void setOffer(Set<Offer> offer) {
+		this.offer = offer;
 	}
 	
 	
