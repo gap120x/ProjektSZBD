@@ -11,7 +11,7 @@
     <link href="/../css/table.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="UTF-8">
-  <title>Softech- Zarządzanie Licencjami</title>
+  <title>Softech- Zarządzanie Zamówieniami</title>
   <meta name="description" content="Description of your site goes here">
   <meta name="keywords" content="keyword1, keyword2, keyword3">
 
@@ -23,7 +23,7 @@
 
 <center>
 <div id="formdiv">
-<form:form modelAttribute="customerdto" method="POST" action="/license/manage">
+<form:form modelAttribute="customerdto" method="POST" action="/order/manage">
 <label>Wybierz Klienta</label>	
 	<form:select required="required" path="userid">
         <form:options items="${chooseclient}" itemValue="userid" itemLabel="firstnameandsurname" />
@@ -37,30 +37,35 @@
 </div>
  </center>   
 <table>
-  <caption>Lista Licencji</caption>
+  <caption>Lista Zamówień</caption>
   <thead>
     <tr>
       <th>LP.</th>
-      <th>Klucz Licencyjny</th>
-      <th>Data Wydania</th>
-	<th>Data Wygaśniecia</th>
-	<th>Nazwa Software'u</th>
-	<th>Zarządzanie</th>
+      <th>Data zamówienia</th>
+      <th>Suma</th>
+	<th>Status</th>
+	<th>Imię Klienta</th>
+		<th>Nazwisko</th>
+		<th>Szczegóły</th>
+		<th>Zarządzanie</th>
 		  
 	    </tr>
   </thead>
   <tbody>
     <c:set var="count" value="0" scope="page" />
-  <c:forEach var="LicenseDto" items="${licenselist}">
+  <c:forEach var="OrderDto" items="${orderlist}">
     <tr>
 <c:set var="count" value="${count + 1}" scope="page"/>		
       <td data-column="LP">${count}</td>
-      <td data-column="nazwa">${LicenseDto.licensekey}</td>
-      <td data-column="imie">${LicenseDto.releasedate}</td>
-      <td data-column="imie">${LicenseDto.expirationdate}</td>
-	<td data-column="imie">${LicenseDto.softwarename}</td> 	  	  
-	<td data-column="zarzadzanie"><center><a href="/license/manage/delete/${LicenseDto.licenseid}"><img border="0" alt="Delete" src="/images/delete-icon-14.jpg" width="30" height="30"></a>
-	  <a href="/license/manage/edit/${LicenseDto.licenseid}"><img border="0" alt="Edit" src="/images/editicon.png" width="30" height="30"></a>
+      <td data-column="nazwa">${OrderDto.orderdate}</td>
+      <td data-column="imie">${OrderDto.totalprice}</td>
+      <td data-column="imie">${OrderDto.status}</td>
+	<td data-column="imie">${OrderDto.customername}</td> 
+	<td data-column="imie">${OrderDto.customersurname}</td>
+ 	<td data-column="adres"><a href="/order/view/details/${OrderDto.orderird}">Wyświetl</td>  
+	<td data-column="zarzadzanie"><center><a href="/order/manage/delete/${OrderDto.orderird}"><img border="0" alt="Delete" src="/images/delete-icon-14.jpg" width="30" height="30"></a>
+	  <a href="/neworder/create/addproduct/${OrderDto.orderird}"><img border="0" alt="Edit" src="/images/editicon.png" width="30" height="30"></a>
+	   <a href="/order/manage/setstatus/${OrderDto.orderird}"><img border="0" alt="changestatus" src="/images/statusicon.png" width="30" height="30"></a>
 	     </center></li></td>
 		    </tr>  
 	   </c:forEach>

@@ -46,7 +46,13 @@
 	 
   </tbody>
 </table>
-  <h1 id="Przywitanie"><a href="/accountlist/customer">Wróć</a></h1>
+<button onclick="goBack()">Wróć</button>
+
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
 </div>
 
  <%@ include file="footer.jsp"%>

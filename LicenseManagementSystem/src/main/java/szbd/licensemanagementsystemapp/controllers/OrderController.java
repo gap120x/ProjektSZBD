@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import szbd.licensemanagementsystemapp.customers.Customer;
 import szbd.licensemanagementsystemapp.customers.CustomerDto;
+import szbd.licensemanagementsystemapp.customers.CustomerService;
 import szbd.licensemanagementsystemapp.employees.Employee;
 import szbd.licensemanagementsystemapp.orders.Order;
 import szbd.licensemanagementsystemapp.orders.OrderService;
@@ -33,6 +35,8 @@ import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUser;
 public class OrderController {
 	@Autowired
 	UserService userservice;
+	@Autowired
+	CustomerService customerservice;
 	@Autowired
 	OrderService orderservice;
 	@Autowired
@@ -136,6 +140,90 @@ public class OrderController {
 	       return "redirect:/";	     
 	        
 	    }
+	  
+	  @RequestMapping(value="/order/view")
+		public String ViewOrder(Model model)
+				
+		{
+			model.addAttribute("chooseclient",userservice.viewCustomer());
+			model.addAttribute("customerdto",new CustomerDto(null, null, null, null, null, null, null, false, null, null, 0, null));		
+			return "vieworder";
+		}
+		@RequestMapping(value="/order/view",method=RequestMethod.POST)
+		public String ViewOrderPost(@ModelAttribute("customerdto") CustomerDto customer,Model model)
+				
+		{
+			model.addAttribute("chooseclient",userservice.viewCustomer());
+			model.addAttribute("customerdto",customer);		
+			model.addAttribute("orderlist",orderservice.viewOrderByCustomerr(customerservice.get(customer.getUserid())));
+		
+			return "vieworder";
+		}
+		  @RequestMapping(value="/order/view/details/{id}")
+			public String ViewOrderdetails(Model model,@PathVariable(name = "id") Long id)
+					
+			{
+			  Order order = orderservice.get(id);
+			  List <ProductListDto> productlistonorder =productlistservice.ProductListonOrder(order);
+			  model.addAttribute("productlistonorder",productlistonorder);
+				return "vieworderdetails";
+			}
+		  
+			@RequestMapping(value="/viewmyorders")
+			public String viewOrderByCustomer(Model model,HttpServletRequest request)
+					
+			{
+				Principal principal = request.getUserPrincipal();
+				User client = userservice.getUserByUsername(principal.getName());
+				Customer customer =client.getCustomer();
+				model.addAttribute("orderlist",orderservice.viewOrderByCustomerr(customer));
+				return "viewordersbycustomer";
+			}
+			
+			 @RequestMapping(value="/order/manage")
+				public String manageOrder(Model model)
+						
+				{
+					model.addAttribute("chooseclient",userservice.viewCustomer());
+					model.addAttribute("customerdto",new CustomerDto(null, null, null, null, null, null, null, false, null, null, 0, null));		
+					return "manageorder";
+				}
+				@RequestMapping(value="/order/manage",method=RequestMethod.POST)
+				public String manageOrderPost(@ModelAttribute("customerdto") CustomerDto customer,Model model)
+						
+				{
+					model.addAttribute("chooseclient",userservice.viewCustomer());
+					model.addAttribute("customerdto",customer);		
+					model.addAttribute("orderlist",orderservice.viewOrderByCustomerr(customerservice.get(customer.getUserid())));
+					return "manageorder";
+				
+				}
+				
+				@RequestMapping("/order/manage/delete/{id}")
+				public String deleteOrder(@PathVariable(name = "id") Long id) {
+					orderservice.delete(id);
+
+					return "redirect:/order/manage";
+				}
+				
+				@RequestMapping(value = "/order/manage/setstatus/{id}")	 
+			    public String setStatusOrder(@PathVariable(name = "id") Long id,Model model) 
+			  {	        
+					Order order = orderservice.get(id);
+					model.addAttribute("orderstatus",order);
+					
+			       return "setorderstatus";	     
+			        
+			  }
+				
+				@RequestMapping("/order/manage/setstatus/{id}/save")
+				public String saveOrderStatus(@ModelAttribute("orderstatus") Order order) 
+				{
+					orderservice.save(order);
+					
+					 return "redirect:/order/manage";	   
+			        
+			}
 	 
 	 
 	 

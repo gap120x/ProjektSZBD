@@ -10,7 +10,7 @@
   <link href="/../css/table.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="UTF-8">
-  <title>Softech-Strona Główna</title>
+  <title>Softech-Zarządzanie działami</title>
   <meta name="description" content="Description of your site goes here">
   <meta name="keywords" content="keyword1, keyword2, keyword3">
 

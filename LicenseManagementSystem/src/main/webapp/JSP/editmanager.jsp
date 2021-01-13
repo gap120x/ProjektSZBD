@@ -10,7 +10,7 @@
   <link href="/../css/form.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="UTF-8">
-  <title>Softech- Nowe Konto Klienta</title>
+  <title>Softech- Edytuj Konto Managera</title>
   <meta name="description" content="Description of your site goes here">
   <meta name="keywords" content="keyword1, keyword2, keyword3">
 
@@ -22,7 +22,7 @@
 
 
 <center>
-<h1 id="tytul">Dodaj nowe konto Sprzedawcy</h1>
+<h1 id="tytul">Edytuj Konto Managera</h1>
 <div id="formdiv">
 <form:form modelAttribute="editUser" method="POST" action="/manageaccount/manager/edit/${editUser.id}/save">
 <label>ID</label>

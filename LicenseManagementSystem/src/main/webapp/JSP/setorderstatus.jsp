@@ -10,7 +10,7 @@
   <link href="/../css/form.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="UTF-8">
-  <title>Softech- Edytuj Produkt</title>
+  <title>Softech- Edycja Statusu zamówienia</title>
   <meta name="description" content="Description of your site goes here">
   <meta name="keywords" content="keyword1, keyword2, keyword3">
 
@@ -22,28 +22,31 @@
 
 
 <center>
-<h1 id="tytul">Edytuj Produkt</h1>
+<h1 id="tytul">Zmień Status dla Zamówienia</h1>
 <div id="formdiv">
-<form:form modelAttribute="editProduct" method="POST" action="/manageproduct/edit/save">
-<label>ID</label>
- <form:input readonly="true" required="required" path="id"/>
-<label>Cena</label>
- <form:input required="required" path="price"/>
-  <label>Waluta</label>
- <form:select required="required" path="currency">
-		<form:option value="PLN">PLN</form:option>
-		<form:option value="USD">USD</form:option>
-		<form:option value="EUR">EUR</form:option>
+<form:form modelAttribute="orderstatus" method="POST" action="/order/manage/setstatus/${orderstatus.id}/save">
+
+<label>ID Zamówienia</label>
+ <form:input path="id" readonly="true"/>
+    <label>Status Zamówienia </label>   
+	   <form:select required="required" path="status">
+		<form:option value="W trakcie Tworzenia">W trakcie Tworzenia</form:option>
+		<form:option value="Oczekiwanie na Płatność">Oczekiwanie na Płatność</form:option>
+		<form:option value="Opłacone">Opłacone</form:option>
+		<form:option value="Licencje Wygenerowane">Licencje Wygenerowane</form:option>
 		</form:select>
-   <label>Software</label>
-<form:select required="required" path="software">
-        <form:options items="${softwarelist}" itemValue="id" itemLabel="name" />
-    </form:select> 
+		<label>Data Zamówienia</label>
+   <form:input path="orderdate" readonly="true"/>
+    <label>Kwota Zamówienia</label>
+	    <form:input path="totalprice" readonly="true"/>	
+	    <form:input path="customer" type="hidden"/>			
+	    <form:input path="customerserviceuser" type="hidden"/>		 
   </br>
   <button type="submit">Zapisz</button>
-  </form:form>
-  </div>
- </center>   
+</form:form>
+
+</div>
+ </center>     
 </div>
  <%@ include file="footer.jsp"%>
 </body>

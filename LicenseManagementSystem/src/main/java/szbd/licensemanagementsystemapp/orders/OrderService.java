@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import szbd.licensemanagementsystemapp.customers.Customer;
+import szbd.licensemanagementsystemapp.licenses.LicenseDto;
 @Service
 @Transactional
 public class OrderService {
@@ -31,6 +34,9 @@ public class OrderService {
 	{
 		return repo.maxid();
 	}
-	
+	public List<OrderDto> viewOrderByCustomerr(Customer customer)
+	{
+		return repo.viewOrderByCustomerr(customer);
+	}
 	
 }

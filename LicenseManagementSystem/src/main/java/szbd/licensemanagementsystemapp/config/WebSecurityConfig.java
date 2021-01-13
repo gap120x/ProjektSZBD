@@ -41,12 +41,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-        	.antMatchers("/newaccount/manager","/newaccount/manager/save","/accountlist/manager","/manageaccount/manager","/manageaccount/manager/edit/{id}",
+        	.antMatchers("/newaccount","/newaccount/manager","/accountlist","/newaccount/manager/save","/accountlist/manager","/manageaccount/manager","/manageaccount/manager/edit/{id}",
         				 "/manageaccount/manager/edit/{id}/save","/newdepartment","/newdepartment/save","/departmentlist","/manage/department","/manage/department/delete/{id}",
-        				 "/manage/department/edit/{id}","/manage/department/edit/{id}/save") 
+        				 "/manage/department/edit/{id}","/manage/department/edit/{id}/save","/manageaccount","/newdepartment","/newdepartment/save","/departmentlist",
+        				 "/manage/department","/manage/department/delete/{id}","/manage/department/edit/{id}","/manage/department/edit/{id}/save") 
         	.hasRole("ADMIN")
-        	.antMatchers()
+        	.antMatchers("/newaccount/customerservice","/newaccount/customerserviceuser/save","/accountlist/customerservice","/manageaccount/customerservice",
+        				 "/manageaccount/customerservice/delete/{id}","/manageaccount/customerservice/edit/{id}","/manageaccount/customerservice/edit/{id}/save",
+        				 "/mydepartment/customerservicelist","/mydepartment/newcustomerserviceuser","mydepartment/newaccountcustomerserviceuser/save","mydepartment/manageaccount/customerservice")
         	.hasAnyRole("ADMIN","MANAGER")
+        	.antMatchers("/accountlist/customer","/manageaccount/customer","/manageaccount/customer/delete/{id}","/manageaccount/customer/edit/{id}","/manageaccount/customer/edit/{id}/save"
+        				 ,"/manageaccount/editpassword/{id}","/manageaccount/editpassword/{id}/save","/manageaccount/customer/editaddress/{id}","/manageaccount/customer/editaddress/{id}/save"
+        				 ,"/newsoftware","/newsoftware/save","/newproduct","/newproduct/save","/softwarelist","/productlist","/managesoftware","/manageproduct",
+        				  "/managesoftware/delete/{id}","/managesoftware/edit/{id}","/managesoftware/edit/save","/manageproduct/delete/{id}","/manageproduct/edit/{id}",
+        				  "/manageproduct/edit/save","/newlicense","/license/view","/license/manage","/license/manage/delete/{id}","/license/manage/edit/{id}",
+        				  "/license/manage/edit/{id}/save","/neworder/create","/neworder/create/save","/neworder/create/addproduct/{id}","/neworder/create/addproduct/{id}/save",
+        				  "/neworder/create/addproduct/{id}/delete/{productid}","/neworder/create/addproduct/{id}/end","/order/view","/order/manage","/order/manage/delete/{id}",
+        				  "/order/manage/setstatus/{id}","/order/manage/setstatus/{id}/save")
+        	.hasAnyRole("ADMIN","MANAGER","CUSTOMERSERVICEUSER")
+        	.antMatchers("/viewmylicense","/viewmyorders")
+        	.hasAnyRole("CUSTOMER")
           	.anyRequest().authenticated()
             .and()        
             .formLogin().permitAll()

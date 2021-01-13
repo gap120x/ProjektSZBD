@@ -11,7 +11,7 @@
     <link href="/../css/table.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="UTF-8">
-  <title>Softech- Lista licencji</title>
+  <title>Softech- Sczegóły Zamówienia</title>
   <meta name="description" content="Description of your site goes here">
   <meta name="keywords" content="keyword1, keyword2, keyword3">
 
@@ -20,37 +20,42 @@
   <%@ include file="header.jsp"%>
    <%@ include file="menu.jsp"%>
 <div id="site-content">  
-
-   
 <table>
-  <caption>Lista Licencji</caption>
+  <caption>Lista Produktów na zamówieniu</caption>
   <thead>
     <tr>
       <th>LP.</th>
-      <th>Klucz Licencyjny</th>
-      <th>Data Wydania</th>
-	<th>Data Wygaśniecia</th>
-	<th>Nazwa Software'u</th>
-		  
-	    </tr>
+      <th>Nazwa</th>
+	    <th>Opis</th>
+		   <th>Cena</th>
+		   <th>Ilość</th>
+		     <th>Suma</th>
+					 
+        </tr>
   </thead>
   <tbody>
     <c:set var="count" value="0" scope="page" />
-  <c:forEach var="LicenseDto" items="${licenselist}">
-    <tr>
-<c:set var="count" value="${count + 1}" scope="page"/>		
-      <td data-column="LP">${count}</td>
-      <td data-column="nazwa">${LicenseDto.licensekey}</td>
-      <td data-column="imie">${LicenseDto.releasedate}</td>
-      <td data-column="imie">${LicenseDto.expirationdate}</td>
-	<td data-column="imie">${LicenseDto.softwarename}</td> 	  	  
-	
-		    </tr>  
-	   </c:forEach>
+  <c:forEach var="ProductListDto" items="${productlistonorder}">
+    <tr >
+	<c:set var="count" value="${count + 1}" scope="page"/>
+      <td data-column="id">${count}</td>
+      <td data-column="nazwa">${ProductListDto.name}</td>
+	       <td data-column="nazwa">${ProductListDto.description}</td>
+		     <td data-column="nazwa">${ProductListDto.price} PLN</td>
+			  <td data-column="nazwa">${ProductListDto.quantity}</td>
+			   <td data-column="nazwa">${ProductListDto.totalprice} PLN</td> 
+			  	</center></li></td>	   		     
+      	       </tr>  
+	   </c:forEach> 
   </tbody>
 </table>
+<button onclick="goBack()">Wróć</button>
 
-
+<script>
+function goBack() {
+  window.history.back();
+}
+</script>
 </div>
 
  <%@ include file="footer.jsp"%>
