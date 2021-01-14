@@ -1,0 +1,5 @@
+admin: admin admin
+menedżer : michal.kowalski password1234
+sprzedawca andrzej.nowak 1qazxsw2
+klient:alan.wysocki haslo1234
+lukasz.marzec haslo1234

@@ -27,7 +27,7 @@ CREATE TABLE `article` (
   `Title` varchar(255) NOT NULL,
   `text` longtext NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `article` (
 
 LOCK TABLES `article` WRITE;
 /*!40000 ALTER TABLE `article` DISABLE KEYS */;
+INSERT INTO `article` VALUES (2,'Siemens PLM Software wprowadza nową mobilną aplikację dla Teamcenter','Siemens PLM Software, wiodący światowy dostawca oprogramowania do zarządzania cyklem życia produktu, poinformował o udostępnieniu w sklepie Apple App Store aplikacji Teamcenter AppShare na iPada.\r\n\r\nTa nowa aplikacja z linii mobilnych aplikacji PLM od Siemens PLM Software umożliwia użytkownikom jeszcze sprawniejszą współpracę z dowolnego miejsca z dostępem do mobilnego internetu. Dzięki Teamcenter AppShare na iPada użytkownicy mogą dołączyć do istniejących sesji AppShare, korzystając z opcji współdzielenia ekranu. W ten sposób ich ekran będzie wyświetlał zawartość ekranu współpracowników.\r\nDołozona została dodatkowa treść..... cos tam cos tam');
 /*!40000 ALTER TABLE `article` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +148,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (4,'1234567890','6462933516',0,'Softwareaholic',NULL);
+INSERT INTO `customer` VALUES (4,'1234567890','6462933516',0,'Softwareaholic',NULL),(5,'1232567890','23134123',0,'Test Company',NULL);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,8 +189,9 @@ CREATE TABLE `department` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `leader` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `idx_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +200,7 @@ CREATE TABLE `department` (
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department` VALUES (1,'Dział Sprzedaży Oprogramowania','Michał Kowalski');
+INSERT INTO `department` VALUES (1,'Dział Sprzedaży Oprogramowania','Michał Kowalski'),(2,'Dział do Optymalizacji Treści','');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +344,7 @@ CREATE TABLE `offer` (
   KEY `Customer_ID` (`Customer_ID`),
   CONSTRAINT `offer_ibfk_1` FOREIGN KEY (`Customer_Service_User_ID`) REFERENCES `customer_service_user` (`ID`),
   CONSTRAINT `offer_ibfk_2` FOREIGN KEY (`Customer_ID`) REFERENCES `customer` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -351,6 +353,7 @@ CREATE TABLE `offer` (
 
 LOCK TABLES `offer` WRITE;
 /*!40000 ALTER TABLE `offer` DISABLE KEYS */;
+INSERT INTO `offer` VALUES (1,'2021-01-31','Przedmiotem Oferty są produkty Firmy Softech.\r\nOferta Zawiera:\r\n-Windows XP - Cena 80zł\r\n-Windows 10 - Cena 350zł\r\n-Pakiet Office Cena 450zł','2021-01-13','Przegrana',3,4),(3,'2021-01-31','Przedmiotem Oferty są produkty Firmy Softech.</br> \r\nOferta Zawiera:</br> \r\n-Windows XP - Cena 80zł</br>\r\n-Windows 10 - Cena 350zł </br> \r\n-Pakiet Office Cena 450zł </br>','2021-01-13','Wysłana',3,4);
 /*!40000 ALTER TABLE `offer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -372,11 +375,11 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`ID`),
   KEY `Payment_id` (`Payment_id`),
   KEY `Customer_Service_User_ID` (`Customer_Service_User_ID`),
-  KEY `Customer_ID` (`Customer_ID`),
+  KEY `idx_customer_id` (`Customer_ID`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`Payment_id`) REFERENCES `payment` (`ID`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`Customer_Service_User_ID`) REFERENCES `customer_service_user` (`ID`),
   CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`Customer_ID`) REFERENCES `customer` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +388,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,'2021-01-13',1199.97,2,NULL,4,'Oczekiwanie na płatność'),(2,'2021-01-13',399.99,2,NULL,4,'Oczekiwanie na płatność');
+INSERT INTO `orders` VALUES (1,'2021-01-13',1199.97,2,NULL,4,'Oczekiwanie na płatność'),(2,'2021-01-13',399.99,2,NULL,4,'Oczekiwanie na płatność'),(3,'2021-01-13',1199.97,3,NULL,4,'Oczekiwanie na płatność'),(4,'2021-01-13',799.98,3,NULL,4,'Oczekiwanie na płatność'),(9,'2021-01-14',0,3,NULL,4,'Oczekiwanie na płatność'),(10,'2021-01-14',1599.96,3,NULL,4,'W Trakcie Tworzenia');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +465,7 @@ CREATE TABLE `product_list` (
   KEY `product_ID` (`product_ID`),
   CONSTRAINT `product_list_ibfk_1` FOREIGN KEY (`Order_ID`) REFERENCES `orders` (`ID`),
   CONSTRAINT `product_list_ibfk_2` FOREIGN KEY (`product_ID`) REFERENCES `product` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,7 +474,7 @@ CREATE TABLE `product_list` (
 
 LOCK TABLES `product_list` WRITE;
 /*!40000 ALTER TABLE `product_list` DISABLE KEYS */;
-INSERT INTO `product_list` VALUES (1,1,1,399.99,3,1199.97),(2,1,2,399.99,1,399.99);
+INSERT INTO `product_list` VALUES (1,1,1,399.99,3,1199.97),(2,1,2,399.99,1,399.99),(3,1,3,399.99,3,1199.97),(4,1,4,399.99,2,799.98),(9,1,10,399.99,4,1599.96);
 /*!40000 ALTER TABLE `product_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -551,7 +554,7 @@ CREATE TABLE `updates` (
   KEY `Article_ID` (`Article_ID`),
   CONSTRAINT `updates_ibfk_1` FOREIGN KEY (`Customer_Service_User_ID`) REFERENCES `customer_service_user` (`ID`),
   CONSTRAINT `updates_ibfk_2` FOREIGN KEY (`Article_ID`) REFERENCES `article` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -560,6 +563,7 @@ CREATE TABLE `updates` (
 
 LOCK TABLES `updates` WRITE;
 /*!40000 ALTER TABLE `updates` DISABLE KEYS */;
+INSERT INTO `updates` VALUES (1,'Stworzenie Artykułu','2021-01-13',2,3),(3,'dodano kolejny akapit o xyzzz','2021-01-13',2,3),(4,'test edycji','2021-01-13',2,3);
 /*!40000 ALTER TABLE `updates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -579,8 +583,9 @@ CREATE TABLE `user` (
   `Surname` varchar(255) DEFAULT NULL,
   `role` varchar(255) NOT NULL,
   `enabled` tinyint(4) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`ID`),
+  KEY `idx_usernickname` (`Nickname`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -589,7 +594,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'admin','$2a$10$JFnonKMEo7VCCJqbzlWjE.C.PJgVrwhNagVfHbv.dOQBh5s42w79S','admin@gmail.com','admin','admin','ROLE_ADMIN',1),(2,'michal.kowalski','$2a$10$9pZ/8eraYtTD4wJzxck0U.UFQ51AgtwS.pp/d6M4.Xn7ur3vbgVxq','michal.kowalski@softech.com','Michał','Kowalski','ROLE_MANAGER',1),(3,'andrzej.nowak','$2a$10$egtU5TcjO.u1HdjeZ/6bQOILtrx/10V9SLTjs2NWp/iVGaeNTHlA.','andrzej.nowak@softech.com','Andrzej','Nowak','ROLE_CUSTOMERSERVICEUSER',1),(4,'alan.wysocki','$2a$10$EUfEOqzOCdx6uZzzGhxGn.JoCWDvg/r3ATKXUykD7hdPnMnycxVUy','alan.wysocki@Softwareaholic.com','Alan','Wysocki','ROLE_CUSTOMER',1);
+INSERT INTO `user` VALUES (1,'admin','$2a$10$JFnonKMEo7VCCJqbzlWjE.C.PJgVrwhNagVfHbv.dOQBh5s42w79S','admin@gmail.com','admin','admin','ROLE_ADMIN',1),(2,'michal.kowalski','$2a$10$9pZ/8eraYtTD4wJzxck0U.UFQ51AgtwS.pp/d6M4.Xn7ur3vbgVxq','michal.kowalski@softech.com','Michał','Kowalski','ROLE_MANAGER',1),(3,'andrzej.nowak','$2a$10$egtU5TcjO.u1HdjeZ/6bQOILtrx/10V9SLTjs2NWp/iVGaeNTHlA.','andrzej.nowak@softech.com','Andrzej','Nowak','ROLE_CUSTOMERSERVICEUSER',1),(4,'alan.wysocki','$2a$10$EUfEOqzOCdx6uZzzGhxGn.JoCWDvg/r3ATKXUykD7hdPnMnycxVUy','alan.wysocki@Softwareaholic.com','Alan','Wysocki','ROLE_CUSTOMER',1),(5,'lukasz.marzec','$2a$10$ERRQTA73VrXUb4fSG3xIwu.DyR8lyZELO5JgsXcYS8fR4Onw.gvSi','lukasz.marzec@testcompany.com','Łukasz','Marzec','ROLE_CUSTOMER',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -631,4 +636,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-13 13:32:21
+-- Dump completed on 2021-01-14 16:43:15
