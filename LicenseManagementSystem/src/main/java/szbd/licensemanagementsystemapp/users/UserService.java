@@ -3,10 +3,14 @@ import org.springframework.stereotype.Service;
 
 import szbd.licensemanagementsystemapp.customers.CustomerDto;
 import szbd.licensemanagementsystemapp.customerserviceusers.CustomerServiceUserDto;
+import szbd.licensemanagementsystemapp.customerserviceusers.EmployeeRaportDto;
 
 import javax.transaction.Transactional;
+
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -59,4 +63,10 @@ public class UserService implements UserDetailsService {
 	public List<CustomerServiceUserDto> viewCustomerServiceUserByManager(String role,String name){
 		return userRepository.viewCustomerServiceUserByManager(role,name);
 	}
+	 public List<EmployeeRaportDto> getEmployeesRaport(LocalDate datestart,LocalDate dateend,String name)
+	 {
+		return userRepository.getEmployeesRaport(datestart, dateend, name); 
+	 }
+	 
+	 
 }

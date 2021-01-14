@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         	.antMatchers("/newaccount","/newaccount/manager","/accountlist","/newaccount/manager/save","/accountlist/manager","/manageaccount/manager","/manageaccount/manager/edit/{id}",
         				 "/manageaccount/manager/edit/{id}/save","/newdepartment","/newdepartment/save","/departmentlist","/manage/department","/manage/department/delete/{id}",
         				 "/manage/department/edit/{id}","/manage/department/edit/{id}/save","/manageaccount","/newdepartment","/newdepartment/save","/departmentlist",
-        				 "/manage/department","/manage/department/delete/{id}","/manage/department/edit/{id}","/manage/department/edit/{id}/save") 
+        				 "/manage/department","/manage/department/delete/{id}","/manage/department/edit/{id}","/manage/department/edit/{id}/save","/viewraport") 
         	.hasRole("ADMIN")
         	.antMatchers("/newaccount/customerservice","/newaccount/customerserviceuser/save","/accountlist/customerservice","/manageaccount/customerservice",
         				 "/manageaccount/customerservice/delete/{id}","/manageaccount/customerservice/edit/{id}","/manageaccount/customerservice/edit/{id}/save",
@@ -57,10 +57,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         				  "/manageproduct/edit/save","/newlicense","/license/view","/license/manage","/license/manage/delete/{id}","/license/manage/edit/{id}",
         				  "/license/manage/edit/{id}/save","/neworder/create","/neworder/create/save","/neworder/create/addproduct/{id}","/neworder/create/addproduct/{id}/save",
         				  "/neworder/create/addproduct/{id}/delete/{productid}","/neworder/create/addproduct/{id}/end","/order/view","/order/manage","/order/manage/delete/{id}",
-        				  "/order/manage/setstatus/{id}","/order/manage/setstatus/{id}/save")
-        	.hasAnyRole("ADMIN","MANAGER","CUSTOMERSERVICEUSER")
-        	.antMatchers("/viewmylicense","/viewmyorders")
+        				  "/order/manage/setstatus/{id}","/order/manage/setstatus/{id}/save","/newarticle","/newarticle/save","/viewarticles","/viewarticle/details/{id}",
+        				  "/editarticles","/editarticle/delete/{id}","/editarticle/edit/{id}","/editarticle/save","/newoffer","/newoffer/save","/customerserviceuser/viewoffers"
+        				  ,"/customerserviceuser/manageoffers","/customerserviceuser/manageoffers/delete/{id}")
+        	.hasAnyRole("ADMIN","MANAGER","CUSTOMERSERVICEUSER","/customerserviceuser/manageoffers/edit/{id}","/editoffer/save")
+        	.antMatchers("/viewmylicense","/viewmyorders","/viemyoffers")
         	.hasAnyRole("CUSTOMER")
+        	.antMatchers("/mydepartment/viewraport")
+        	.hasRole("MANAGER")
           	.anyRequest().authenticated()
             .and()        
             .formLogin().permitAll()

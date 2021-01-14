@@ -10,7 +10,7 @@
   <link href="/../css/form.css" rel="stylesheet" type="text/css">
 <head>
   <meta charset="UTF-8">
-  <title>Softech- Nowe Konto Sprzedawcy</title>
+  <title>Softech- Nowa Oferta</title>
   <meta name="description" content="Description of your site goes here">
   <meta name="keywords" content="keyword1, keyword2, keyword3">
 

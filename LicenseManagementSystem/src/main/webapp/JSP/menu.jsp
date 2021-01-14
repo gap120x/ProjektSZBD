@@ -18,13 +18,15 @@
     <li><a href="/manage/department/">Zarządzanie Działami</a></li> 	 
     </ul>   
     </li>
+	 <li><a href="/viewraport">Raporty Działów</a></li> 
 </sec:authorize>
    <sec:authorize access="hasRole('ROLE_MANAGER')">
 <li><a>Pracownicy</a>
     <ul>
         <li><a href="/mydepartment/customerservicelist">Wyświetl listę</a></li>
     <li><a href="/mydepartment/newcustomerserviceuser">Nowy Pracownik</a></li>
-    <li><a href="/mydepartment/manageaccount/customerservice">Zarządzanie Pracownikami</a></li> 	 
+    <li><a href="/mydepartment/manageaccount/customerservice">Zarządzanie Pracownikami</a></li>
+    <li><a href="/mydepartment/viewraport">Raport</a></li> 	
     </ul>   
     </li>
     </sec:authorize>
@@ -91,7 +93,7 @@
     <li><a href="/editarticles">Edytuj Artykuły</a></li> 	 
     </ul>   
     </li>
-      </sec:authorize>
+      </sec:authorize>	  
     <li>
      <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
